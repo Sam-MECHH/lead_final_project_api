@@ -37,10 +37,10 @@ jobs:
         uses: huggingface/hub-sync@v0.3.0
         with:
           github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: SamMec/demoday-fastapi
+          huggingface_repo_id: SamMec/fastapi-gradio
           hf_token: ${{ secrets.HF_TOKEN }}
           repo_type: space
-          space_sdk: docker
+          space_sdk: gradio # Use gradio to run on the free CPU tier
           exclude: |
             tests/
             ruff_*.txt

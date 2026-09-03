@@ -1,5 +1,6 @@
 # --- Web & API Core ---
-fastapi[standard]
+fastapi
+uvicorn
 
 # --- Deep Learning & NLP ---
 transformers
