@@ -37,7 +37,7 @@ jobs:
         uses: huggingface/hub-sync@v0.3.0
         with:
           github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: SamMec/demoday_fastapi
+          huggingface_repo_id: SamMec/demoday-fastapi
           hf_token: ${{secrets.HF_TOKEN}}
           repo_type: space
           space_sdk: docker # 👈 Tell HF to build your Dockerfile

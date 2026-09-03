@@ -15,7 +15,7 @@ from health_multimodal.image.model.pretrained import get_biovil_t_image_encoder
 from PIL import Image
 from transformers import AutoModel, AutoTokenizer
 
-app = FastAPI(title="BioVil Cross-Attention+MLP Inference API")
+app = FastAPI(title="BioVil Cross-Attention+MLP API")
 
 # Global instances
 device = None
