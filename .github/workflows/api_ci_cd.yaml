@@ -1,4 +1,4 @@
-name: API dashboard CI-CD
+name: API dashboard CI
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci-cd-api:
+  ci-api:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,15 +32,3 @@ jobs:
         run: |
           docker build -t api_checker .
           docker run --rm api_checker sh -c "pip install pytest && pytest -vvv tests/"
-
-      - name: Sync to Hugging Face Hub
-        uses: huggingface/hub-sync@v0.3.0
-        with:
-          github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: SamMec/fastapi-gradio
-          hf_token: ${{ secrets.HF_TOKEN }}
-          repo_type: space
-          space_sdk: gradio # Use gradio to run on the free CPU tier
-          exclude: |
-            tests/
-            ruff_*.txt

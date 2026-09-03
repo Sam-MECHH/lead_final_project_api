@@ -1,6 +1,5 @@
 # --- Web & API Core ---
 fastapi
-uvicorn
 
 # --- Deep Learning & NLP ---
 transformers
