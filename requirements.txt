@@ -1,0 +1,16 @@
+# --- Web & API Core ---
+fastapi[standard]
+
+# --- Deep Learning & NLP ---
+transformers
+accelerate
+
+# --- Computer Vision & Imaging ---
+Pillow
+hi-ml-multimodal
+
+# --- MLOps & Remote Model Registry (S3/MLflow) ---
+mlflow==3.5.0
+boto3
+fsspec
+s3fs

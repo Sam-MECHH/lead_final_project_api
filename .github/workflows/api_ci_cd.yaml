@@ -1,0 +1,46 @@
+name: API dashboard CI-CD
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ci-cd-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check scripts formatting
+        run: |
+          pip install ruff
+          ruff format --check --diff src/>ruff_format_src_report.txt 2>&1
+          ruff format --check --diff tests/>ruff_format_tests_report.txt 2>&1
+
+      - name: Upload Report Artifacts
+        if: always() # Uploads reports even if checks fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-quality-reports
+          path: |
+            ruff_format_src_report.txt
+            ruff_format_tests_report.txt
+
+      - name: Build Docker Image & Run Tests
+        run: |
+          docker build -t api_checker .
+          docker run --rm api_checker sh -c "pip install pytest && pytest -vvv tests/"
+
+      - name: Sync to Hugging Face Hub
+        uses: huggingface/hub-sync@v0.3.0
+        with:
+          github_repo_id: ${{ github.repository }}
+          huggingface_repo_id: SamMec/demoday_dashboard
+          hf_token: ${{secrets.HF_TOKEN}}
+          repo_type: space
+          space_sdk: docker # 👈 Tell HF to build your Dockerfile
+          exclude: |
+            tests/
+            ruff_*.txt

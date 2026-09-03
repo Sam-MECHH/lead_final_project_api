@@ -1,0 +1,4 @@
+secrets.env
+.env
+__pycache__/
+.hf_cache/
